@@ -1,0 +1,11 @@
+.teste{
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+    color: blue;
+    text-align: center;
+    text-decoration: line-through;
+    text-transform: capitalize;
+    font-family: "Times New Roman", serif;
+    font-size: 40px;    
+}

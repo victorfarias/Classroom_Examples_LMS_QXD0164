@@ -1,0 +1,15 @@
+.teste{
+    max-width: 200px;
+    height: 200px;
+    /* background-color: blue; */
+    border-style: solid dashed groove ridge;
+    border-width: 10px 20px 30px 40px;
+    border-color: blue green yellow;
+    margin: 40px 50px 60px 70px;
+    padding: 40px;
+}
+.teste2{
+    width: 200px;
+    height: 200px;
+    border: 30px groove #999;
+}

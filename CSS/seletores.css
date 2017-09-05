@@ -1,0 +1,15 @@
+p{
+    color: red;
+}
+.teste{
+    color: yellow;
+}
+#para1{
+    color: blue;
+}
+.teste, #para1{
+    font-size: 30px;
+}
+article h3{
+    font-size: 40px;
+}

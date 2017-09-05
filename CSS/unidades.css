@@ -1,0 +1,19 @@
+span{
+    font-size: 2rem;
+}
+.teste{
+    background-color: blue;
+    width: 60vw;
+    height: 30vh;
+}
+
+.teste2{
+    background-color: red;
+    height: 50vmax;
+    width: 50vmax;
+}
+.teste2 div{
+    background-color: yellow;
+    height: 100px;
+    width: 70%;
+}

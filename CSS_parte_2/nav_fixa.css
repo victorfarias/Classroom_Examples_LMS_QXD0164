@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.nav-superior-fixa{
+    background-color: #ddd;
+    overflow: auto;
+    position: fixed;
+    width: 100vw;
+    z-index: 0;
+}
+
+.nav-superior-fixa ul{
+    list-style: none;
+}
+
+.nav-superior-fixa ul li a{
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    float: left;
+    color: black;
+}
+
+.nav-superior-fixa ul li a:hover{
+    background-color: #bbb;
+}
+    
+.container{
+    position: relative;
+    top: 48px;
+    z-index: -10;
+}

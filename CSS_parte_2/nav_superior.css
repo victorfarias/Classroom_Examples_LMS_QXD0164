@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.nav-superior-fixa{
+    background-color: #ddd;
+    overflow: auto;
+}
+
+.nav-superior-fixa ul{
+    list-style: none;
+}
+
+.nav-superior-fixa ul li a{
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    float: left;
+    color: black;
+}
+
+.nav-superior-fixa ul li a:hover{
+    background-color: #bbb;
+}
+    

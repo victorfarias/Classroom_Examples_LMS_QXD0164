@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.galeria{
+    text-align: center;
+}
+.card{
+    padding: 15px;
+    margin: 10px;
+    background-color: #ddd;
+    display: inline-block;
+    border-radius: 10px 20px 30px 40px;
+    transition: transform 250ms;
+}
+
+.card img{
+    width: 250px;
+}
+
+.card:hover{
+    transform: scale(1.15,1.15);
+}

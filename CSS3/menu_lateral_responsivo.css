@@ -30,15 +30,14 @@
 }
 
 .container{
-    padding: 20px;
-    
+    padding: 20px; 
 }
 
 @media screen and (min-width: 479px){
     .nav-lateral{
         float: left;  
         width: 30%;
-        height: calc(100vh - 57px);        
+        height: calc(100vh - 57px);     
     }
     .container{
         margin-left: 30%;

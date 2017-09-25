@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .img-overlay{
+            width: 300px;
+            position: relative;
+        }
+        .img-overlay img{
+            width: 100%;
+        }
+
+        .overlay{
+            background-color: rgba(0,0,0,0.92);
+            opacity: 0;
+            position: absolute;
+            height: 0%;
+            width: 100%;
+            top:0;
+            transition: all 1s;
+        }
+
+        .img-overlay:hover .overlay{
+            opacity: 1;
+            height: 100%;
+        }
+
+        
+        .overlay span{
+            color: white;
+            font-size: 30px;
+            position: absolute;            
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+        }
+
+        .button{
+            width: 120px;
+            height: 60px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            border-radius: 10%;
+            background-color: pink;
+            box-shadow: 8px 8px 4px rgba(0,0,0,0.5);
+            transition: all 300ms;
+        }
+
+        .button:active{
+            box-shadow: 4px 4px 3px rgba(0,0,0,0.8);
+            transform: translate(4px, 4px);
+        }
+        .loading{
+            width: 180px;
+            height: 180px;
+            border: 30px solid black;
+            border-radius: 50%;
+            border-bottom: 30px solid green; 
+            animation-name: rodar;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes rodar{
+            from{
+                transform: rotate(0deg);
+            }to{
+                transform: rotate(360deg);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <div class="img-overlay">
+            <img src="arya.jpg" alt="">
+            <div class="overlay">
+                <span>
+                    Arya!
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <button class="button">
+        <span>
+            Clique me
+        </span>
+    </button>
+
+    <div class="loading"></div>
+</body>
+</html>

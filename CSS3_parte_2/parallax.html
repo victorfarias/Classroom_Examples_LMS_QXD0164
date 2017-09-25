@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        .background1{
+            background: url(got1.jpg);
+        }
+        .background2{
+            background: url(got2.jpg);
+        }
+        .parallax{
+            height: 100vh;
+            background-size: 100% 100%;
+            background-attachment: fixed;
+        }
+
+        .conteudo1{
+            background-color: black;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .conteudo1 span{
+            font-size: 50px;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax background1"></div>
+    <div class="conteudo1">
+        <span>Meu texto só a massa!</span>
+    </div>
+    <div class="parallax background2"></div>
+</body>
+</html>

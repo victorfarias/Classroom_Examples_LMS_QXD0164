@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .background-azul{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">Content</div>
+    <div class="selecionar">outra coisa</div>
+    <div class="selecionar background-azul">outra coisa</div>
+    <img class="imagem" src="arya.jpg" alt="">
+    <script>
+        let container = document.getElementById("container");
+        console.log(container);
+
+        let divs = document.getElementsByTagName("div");
+        console.log(divs);
+
+        let backAzul = document.getElementsByClassName("background-azul");
+        console.log(backAzul);
+
+        let divs2 = document.querySelectorAll(".background-azul");
+        console.log(divs2);
+
+        let container2 = document.querySelector("#container");
+        console.log(container2);
+
+        document.write("<h1>Título</h1>");
+
+        console.log(container.innerHTML);
+        container.innerHTML = "<h2>Título h2</h2>"; 
+
+        let imagem = document.querySelector(".imagem");
+        imagem.src="smiley.gif";
+
+        container.style.backgroundColor = "green";
+        container.style.borderRadius = "20%";
+        
+        let selecionar = document.querySelectorAll(".selecionar");
+        selecionar[0].classList.add("background-azul");
+        selecionar[1].classList.remove("background-azul");
+        if(selecionar[0].classList.contains("background-azul")){
+            console.log("tem back");
+        }else{
+            console.log("não tem back");            
+        }
+        for(el of selecionar){
+            el.classList.toggle("background-azul");
+        }
+
+    </script>
+</body>
+</html>

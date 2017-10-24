@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <h3>
+        Lista de amigos
+    </h3>
+    <ul class="friends-list">
+
+    </ul>
+
+    <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name">
+        <br>
+        <label for="family-name">Family Name</label>
+        <input type="text" id="family-name">
+        <br>
+        <button class="form-submit">Submit</button>
+    </form>
+    
+    <script>
+
+        let friendList = document.querySelector(".friends-list");
+        function addFriend(name, familyName){
+            let li = document.createElement('li');
+            let text = document.createTextNode(name +" " +familyName);
+            li.appendChild(text);
+            friendList.appendChild(li);
+        }
+        
+        
+
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            console.log(xhttp.readyState);
+            if(xhttp.readyState==4){
+                let obj_parsed = JSON.parse(xhttp.responseText);
+                for(let i=0; i<obj_parsed.length; i++){
+                    addFriend(obj_parsed[i].nome, obj_parsed[i].sobrenoe);
+                }
+            }
+        }
+        xhttp.open('GET','http://rest.learncode.academy/api/victor/amigos',true);
+        xhttp.send();
+
+
+        function sendFriend(name, familyName){
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(xhttp.readyState==4){
+                    console.log(xhttp.status);
+                    console.log(xhttp.responseText);
+                    console.log(xhttp.statusText);
+                }
+            }
+            xhttp.open("POST", "http://rest.learncode.academy/api/victor/amigos", true);
+            xhttp.setRequestHeader("Content-Type","application/json");
+            let person = {"nome":name , "sobrenoe":familyName};
+            let body = JSON.stringify(person);
+            xhttp.send(body);
+        }
+
+
+        let submit = document.querySelector(".form-submit");
+        let nameInput = document.querySelector("#name");
+        let familyNameInput = document.querySelector("#family-name");
+        submit.addEventListener("click", function(){
+            event.preventDefault();
+            sendFriend(nameInput.value, familyNameInput.value);
+        });
+
+
+    </script>
+</body>
+</html>

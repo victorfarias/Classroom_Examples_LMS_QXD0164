@@ -39,9 +39,9 @@
 
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function(){
-            console.log(xhttp.readyState);
             if(xhttp.readyState==4){
                 let obj_parsed = JSON.parse(xhttp.responseText);
+                console.log(obj_parsed);
                 for(let i=0; i<obj_parsed.length; i++){
                     addFriend(obj_parsed[i].nome, obj_parsed[i].sobrenoe);
                 }

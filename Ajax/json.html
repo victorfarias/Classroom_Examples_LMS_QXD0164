@@ -12,8 +12,9 @@
         '{ "firstName":"John" , "lastName":"Doe" },' +
         '{ "firstName":"Anna" , "lastName":"Smith" },' +
         '{ "firstName":"Peter" , "lastName":"Jones" } ]}';
+    console.log(text);
     let obj = JSON.parse(text);
-    console.dir(obj);
+    console.table(obj);
     for(let i=0; i<obj.employees.length; i++){
         console.log(obj.employees[i].firstName);
     }

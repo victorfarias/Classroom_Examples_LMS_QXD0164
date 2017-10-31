@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .gallery {
+            width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .gallery .gallery-item {
+            display: inline-block;
+            margin: 15px;
+            cursor: pointer;
+        }
+
+        .gallery .gallery-item img {
+            display: none;
+            /* display: block; */
+        }
+
+        .gallery .gallery-item .loading {
+            width: 140px;
+            height: 140px;
+            border: 10px solid transparent;
+            border-bottom: 10px solid gray;
+            border-radius: 50%;
+            animation-name: rotate;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .modal.active{
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            top: 0;
+        }
+
+        .modal img{
+            display: none;
+        }
+
+        .modal.active img{
+            display: block;
+            position: absolute;
+            top:50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="gallery">
+        <!-- <div class="gallery-item">
+            <img src="http://placehold.it/150/92c952" alt="">
+            <div class="loading"></div>
+        </div> -->
+    </div>
+    <div class="modal">
+        <img src="http://placehold.it/600/24f355" alt="">
+    </div>
+
+    <script>
+        let modal = document.querySelector(".modal");
+        let imgModal = document.querySelector(".modal img");
+        function closeModal(){
+            modal.classList.remove("active");
+        }
+        function openModal(src){
+            imgModal.src=src;
+            modal.classList.add("active");
+        }
+
+        modal.addEventListener("click",function(e){
+            if(e.target != imgModal){
+                closeModal();
+            }
+        });
+
+        let gallery = document.querySelector(".gallery");
+        function insertImage(thumbnailUrl, url) {
+            let galleryItem = document.createElement("div");
+            galleryItem.classList.add("gallery-item");
+            galleryItem.addEventListener("click",function(){
+                openModal(url);
+            });
+
+            let img = document.createElement("img");
+            img.src = thumbnailUrl;
+
+            let loading = document.createElement("div");
+            loading.classList.add("loading");
+
+            img.addEventListener("load", function () {
+                loading.style.display = "none";
+                img.style.display = "block";
+            })
+
+            galleryItem.appendChild(img);
+            galleryItem.appendChild(loading);
+
+            gallery.appendChild(galleryItem);
+        }
+
+        let countImages = 20;
+        let data = null;
+
+        function loadImages() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    data = JSON.parse(xhttp.responseText);
+                    for (let i = 0; i < countImages; i++) {
+                        insertImage(data[i].thumbnailUrl, data[i].url);
+                    }
+                }
+            }
+            xhttp.open('GET', 'https://jsonplaceholder.typicode.com/photos', true);
+            xhttp.send();
+        }
+        loadImages();
+
+        window.addEventListener("scroll", function () {
+            console.log(window.pageYOffset);
+            console.log(window.innerHeight)
+            console.dir(document.body.offsetHeight);
+            if (window.pageYOffset + window.innerHeight >= document.body.offsetHeight) {
+                if (data != null) {
+                    for (let i = countImages; i < countImages + 20; i++) {
+                        insertImage(data[i].thumbnailUrl, data[i].url);
+                    }
+                    countImages+=20;
+                }
+
+            }
+        })
+
+        
+    </script>
+</body>
+
+</html>

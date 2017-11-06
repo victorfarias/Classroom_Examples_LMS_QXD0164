@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <ul>
+            
+        </ul>
+    </div>
+    <form action="">
+        Mensagem: <input name="message" type="text">
+        <br>
+        <input name="subject" value="futebol" type="radio"> Futebol <br>
+        <input name="subject" value="politica" type="radio"> Política <br>
+        <input name="subject" value="religiao" type="radio"> Religião <br>
+        <input type="Submit">
+    </form>
+
+    <script>
+        let submit = document.querySelector('input[type="Submit"]');
+        let message = document.querySelector('input[name="message"]');
+        let combos = document.querySelectorAll('input[name="subject"]');
+        
+        submit.addEventListener("click", function(e){
+            e.preventDefault();
+            let msg = message.value;
+            let body = {message: msg};
+            for(let i=0; i<combos.length; i++){
+                if(combos[i].checked==true){
+                    body.subject = combos[i].value;
+                }
+            }
+            console.dir(body);
+
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(xhttp.readyState==4){
+                    updateList();
+                }
+            }
+            xhttp.open('POST', 'http://rest.learncode.academy/api/victor/messages2', true);
+            xhttp.setRequestHeader('content-type', 'application/json');
+            xhttp.send(JSON.stringify(body));
+            message.value = "";
+        });
+
+        let ul = document.querySelector('.container ul');
+        
+        function insertMessage(msg, subject){
+            let li = document.createElement('li');
+            let text = document.createTextNode(msg+ " - "+ subject);
+            li.appendChild(text);
+            ul.appendChild(li);
+        }
+
+        function updateList(){
+            // console.dir(combos);
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(xhttp.readyState==4){
+                    let json = xhttp.responseText;
+                    let parsed_json = JSON.parse(json);
+                    // for(let i =0; i<parsed_json.length; i++){                        
+                    //     insertMessage(parsed_json[i].message);
+                    // }
+                    ul.innerHTML = '';
+                    parsed_json.forEach(function(e){
+                        insertMessage(e.message, e.subject);
+                    });
+                }
+            }
+            xhttp.open('GET', 'http://rest.learncode.academy/api/victor/messages2', true);
+            xhttp.send();
+        }
+        updateList();
+    </script>
+</body>
+</html>

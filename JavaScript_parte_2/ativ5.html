@@ -7,6 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
+        html {
+            overflow-x: hidden;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -25,6 +29,7 @@
 
         .container {
             margin-left: 200px;
+            position: relative;
         }
 
         .header {
@@ -42,6 +47,8 @@
             user-select: none;
             border-radius: 5px;
             display: none;
+            position: relative;
+            z-index: 10;
         }
 
         .content {
@@ -88,6 +95,17 @@
             background-color: #00cccc;
             cursor: pointer;
         }
+
+        .overlay{
+            display: none;
+            position: absolute;
+            height: 100%;
+            width: 100vw;
+            background-color: rgba(0,0,0,0.7);
+        }
+        .overlay.active{
+            display: block;
+        }
     </style>
 </head>
 
@@ -104,6 +122,8 @@
     </nav>
 
     <div class="container">
+        <div class="overlay"></div>
+
         <header class="header">
             <span class="sandwich">
                 &#9776;
@@ -128,7 +148,7 @@
                         sed magna eleifend, blandit orci elementum, facilisis nibh. Quisque vehicula dapibus felis ac rutrum.
                         Proin elementum nulla vel turpis consequat tempor. Morbi augue velit, auctor non mi a, placerat molestie
                         dolor. Donec quis dolor nisi. Vestibulum eget efficitur velit. Mauris in massa accumsan, volutpat
-                        odio sit amet, ullamcorper erat.                        
+                        odio sit amet, ullamcorper erat.
                     </div>
                 </div>
                 <div class="item-accordeon">
@@ -173,11 +193,17 @@
         let menu = document.querySelector(".colapsable-menu");
         let sandwich = document.querySelector(".sandwich");
         let container = document.querySelector(".container");
+        let overlay = document.querySelector(".overlay");
 
-        sandwich.addEventListener("click", function () {
+        function toggleActive(){
             menu.classList.toggle("active");
             container.classList.toggle("active");
-        });
+            overlay.classList.toggle("active");
+        }
+
+        sandwich.addEventListener("click", toggleActive);
+
+        overlay.addEventListener("click", toggleActive);
 
         let titles = document.querySelectorAll(".accordeon .item-accordeon .title-accordeon");
         let bodies = document.querySelectorAll(".accordeon .item-accordeon .body-accordeon");

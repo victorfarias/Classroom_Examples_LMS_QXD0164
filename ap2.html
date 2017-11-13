@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .accordeon{
+            width: 60%;
+            margin: auto;
+        }
+        .accordeon .item-title{
+            background-color: rgb(0,255,255);
+            padding: 10px;
+            cursor: pointer;
+        }
+        .accordeon .item-body{
+            background-color: rgb(0,200,200);
+            max-height: 0px;
+            overflow: hidden;
+            transition: max-height 500ms;
+        }
+        .accordeon .item-body.active{
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="accordeon">
+        <!-- <div class="item-accordeon">
+            <div class="item-title">
+                Título do item
+            </div>
+            <div class="item-body">
+                Ovos, leite.... <br>
+                Palavras-chave: Diversos ...
+            </div>
+        </div> -->
+    </div>
+    <form action="">
+        Título: <input id="titulo" type="text"> <br>
+        Nota: <input id="nota" type="text"> <br>
+        Palavras-chave: <br>
+        Compras: <input class="palavras" name="palavra1" value="compras" type="checkbox"> <br>
+        Médico: <input class="palavras" name="palavra2"  value="medico" type="checkbox"> <br>
+        Diversos: <input class="palavras" name="palavra3" value="diversos"  type="checkbox"> <br>
+        <input id="botao-submit" type="Submit">
+
+    </form>
+
+    <script>
+        let submit = document.querySelector("#botao-submit");
+        let titulo = document.querySelector("#titulo");
+        let nota = document.querySelector("#nota");
+        let palavras = document.querySelectorAll(".palavras");
+
+        submit.addEventListener("click", function(){
+            event.preventDefault();
+            let body = {title: titulo.value, nota: nota.value};
+            if(palavras[0].checked == true){
+                body.palavra1 = "Compras";
+            }
+            if(palavras[1].checked == true){
+                body.palavra2 = "Médico";
+            }
+            if(palavras[2].checked == true){
+                body.palavra3 = "Diversos";
+            }
+
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(xhttp.readyState == 4){
+                    updateList();
+                }
+            }
+            xhttp.open("POST","http://rest.learncode.academy/api/victor/lembretes1",true);
+            xhttp.setRequestHeader("content-type","application/json")
+            xhttp.send(JSON.stringify(body));
+
+            titulo.value = "";
+            nota.value = "";
+            palavras[0].checked=false;
+            palavras[1].checked=false;
+            palavras[2].checked=false;
+        })
+
+        function updateList(){
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function(){
+                if(xhttp.readyState == 4){
+                    accordeon.innerHTML = "";
+                    let parsed = JSON.parse(xhttp.responseText);
+                    for(let i=0; i<parsed.length; i++){
+                        insertItem(parsed[i]);
+                    }
+                }
+            }
+            xhttp.open("GET","http://rest.learncode.academy/api/victor/lembretes1",true);
+            xhttp.send();
+        }
+
+        let accordeon = document.querySelector(".accordeon");
+        function insertItem(lembrete){
+            let itemAccordeon = document.createElement("div");
+            itemAccordeon.classList.add("item-accordeon");
+
+            let itemTitle = document.createElement("div");
+            itemTitle.classList.add("item-title");
+            let itemTitleText = document.createTextNode(lembrete.title);
+            itemTitle.append(itemTitleText);
+            itemAccordeon.append(itemTitle);
+            accordeon.append(itemAccordeon);
+
+            let itemBody = document.createElement("div");
+            let palavras_concatenadas = "";
+            let primeiraPalavra = true
+            for(let i=1; i<=3; i++){
+                if(lembrete["palavra"+i]){
+                    if(primeiraPalavra==true){
+                        palavras_concatenadas = lembrete["palavra"+i]     
+                        primeiraPalavra = false;
+                    }else{
+                        palavras_concatenadas = palavras_concatenadas + ", " + lembrete["palavra"+i] 
+                    }
+                }
+            }
+            itemBody.innerHTML = lembrete.nota +"<br>"+palavras_concatenadas;
+            itemBody.classList.add("item-body");
+            itemAccordeon.appendChild(itemBody);
+
+            itemTitle.addEventListener('click',function(){
+                itemBody.classList.toggle("active");
+            })
+        }
+        updateList();
+    </script>
+</body>
+</html>

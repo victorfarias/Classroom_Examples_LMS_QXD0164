@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style>
+        .novos-elementos{
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="effect">Me clique</button>
+    <span class="texto texto1">
+        Tou aqui
+    </span>
+    <span class="texto texto2">
+        Tou aqui
+    </span>
+
+    <div class="novos-elementos">
+
+    </div>
+
+    <script>
+        $(function () {
+            $(".effect").click(function () {
+                $(".texto").slideToggle(2000);
+            })
+        });
+
+        console.log($("body").html());
+        console.log($("body").text());
+        console.log($(".texto").text());
+        console.log($(".texto").attr("class"));
+
+        $(".texto1").text("Aqui tem outro texto agora");
+        $(".texto2").html("<div>aqui tem um div<div>");
+
+        let el1 = "<p>Meu novo parágrafo</p>"; // Não usar
+        let el2 = $("<p></p>").text("Meu novo novo novo"); // É bom, mas é lento. Mas é seguro
+        let el3 = document.createElement("p"); // Só a massa. Seguro e eficiente
+        el3.textContent = "meu terceiro parágrafo";
+
+        $(".novos-elementos").append(el1, el2, el3);
+
+        $(".texto2").remove();
+        $(".texto1").empty();
+
+        $(".texto1").addClass("texto2");
+        $(".texto1").removeClass("texto1");
+        $(".texto2").toggleClass("texto1");
+
+        console.log($(".novos-elementos").css("background-color"));
+        $(".novos-elementos").css({"background-color":"red",
+                                   "border":"1px solid black"});
+    </script>
+
+</body>
+
+</html>

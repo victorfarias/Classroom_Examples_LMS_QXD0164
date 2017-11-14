@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <ul class="todo-list">
+
+    </ul>
+    <form action="">
+        Todo:
+        <input id="todo" type="text">
+        <input id="submit-form" type="Submit">
+    </form>
+    <script>
+        function updateList() {
+            $.ajax({
+                type: "GET",
+                url: "http://rest.learncode.academy/api/victor/todo",
+                success: function (data) {
+                    $(".todo-list").empty();                                
+                    for(let i=0; i<data.length; i++){
+                        insertItem(data[i].todo);
+                    }
+                }
+            })
+        }
+
+        function insertItem(todo){
+            let li = $("<li></li>").text(todo);
+            $(".todo-list").append(li);
+        }
+        updateList();
+
+        $("#submit-form").click(function () {
+            event.preventDefault();
+            // {todo: "Fazer um negócio"}
+            let body = {
+                todo: $("#todo").val()
+            };
+            $.ajax({
+                type: "POST",
+                url: "http://rest.learncode.academy/api/victor/todo",
+                data: body,
+                success: function () {
+                    updateList();
+                }
+            })
+        });
+    </script>
+</body>
+
+</html>
